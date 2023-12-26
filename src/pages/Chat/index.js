@@ -27,7 +27,7 @@ export default function Chat() {
   const getAllContacts = async () => {
     try {
       if (currentUser) {
-        let res = await axios.get(`${allUsersRoute}/${currentUser._id}`);
+        let res = await axios.get(`${allUsersRoute}`);
         console.log("get all users res :", res.data);
         setContacts(res.data);
       } else console.log("no current user so cant pull contacts");
