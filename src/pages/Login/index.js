@@ -13,11 +13,13 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import PasswordInput from "../../components/inputs/PasswordInput";
 import PurpleButton from "../../components/buttons/PurpleButton";
+import { useRecoilState } from "recoil";
+import {userAtom} from '../../stateManagement/userAtom'
 
 function Login() {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
-
+  const [user, setUser] = useRecoilState(userAtom)
   const handleClickPassword = () => {
     setShowPassword((prev) => !prev);
   };
@@ -52,7 +54,7 @@ function Login() {
       }
       if (data.status === true) {
         setLoading(false);
-
+        setUser(data.user)
         localStorage.setItem("chat-app-user", JSON.stringify(data.user));
         navigate("/");
       }

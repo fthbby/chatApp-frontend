@@ -1,16 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Box, Button, Typography, Modal, Grid, Avatar } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
-import SettingsIcon from "@mui/icons-material/Settings";
-import ContactMailIcon from "@mui/icons-material/ContactMail";
 import GreyButton from "../buttons/GreyButton";
-import { ConnectingAirportsOutlined } from "@mui/icons-material";
+import { useRecoilState } from "recoil";
+import { userAtom } from "../../stateManagement/userAtom";
 
-function PhotoModal({ open, onClose, user }) {
-  const [isActive, setIsActive] = useState("General");
-
+function PhotoModal({ open, onClose }) {
+  const [user, setUser] = useRecoilState(userAtom);
   const [image, setImage] = useState();
-
 
   const convertToBase64 = (e) => {
     let reader = new FileReader();
@@ -25,7 +21,7 @@ function PhotoModal({ open, onClose, user }) {
   };
 
   const uploadImage = (e) => {
-    fetch(`${process.env.REACT_APP_BACKEND_URL}/api/upload-image`, {
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/api/auth/upload-image`, {
       method: "POST",
       crossDomain: true,
       headers: {
@@ -36,13 +32,15 @@ function PhotoModal({ open, onClose, user }) {
       body: JSON.stringify({
         base64: image,
         email: user.email,
-        id: user._id
+        id: user._id,
       }),
     })
       .then((res) => res.json())
-      .then((data) => console.log(data));
+      .then((data) => {
+        setUser({ ...user, image: data.image });
+        console.log(data);
+      });
   };
-
 
   return (
     <Modal open={open} onClose={onClose}>
@@ -57,7 +55,7 @@ function PhotoModal({ open, onClose, user }) {
       >
         <Box display={"flex"} justifyContent={"space-between"}>
           <Typography id="modal-modal-title" variant="h6">
-            Change your profile picture 
+            Change your profile picture
           </Typography>
           {/* <CloseIcon
             onClick={onClose}
@@ -72,14 +70,15 @@ function PhotoModal({ open, onClose, user }) {
           alignItems={"center"}
         >
           <Box>
-            {/* <input type="file" onChange={(e) => setFile(e.target.files[0])} /> */}
             <input type="file" accept="image/" onChange={convertToBase64} />
             <Typography onClick={uploadImage} sx={{ cursor: "pointer" }}>
               Upload Picture
             </Typography>
             <Typography>Remove Picture</Typography>
           </Box>
-          {image != null ? (
+          {user && user?.image ? (
+            <Avatar sx={{ width: 100, height: 100 }} src={user.image} />
+          ) : image != null ? (
             <Avatar sx={{ width: 100, height: 100 }} src={image} />
           ) : (
             <Avatar sx={{ width: 100, height: 100 }} />
