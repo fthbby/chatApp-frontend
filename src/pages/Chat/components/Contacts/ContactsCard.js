@@ -31,7 +31,10 @@ function ContactsCard({ contact, index, changeCurrentChat, currentSelected }) {
         alignItems={"center"}
       >
         <Box display={"flex"} flexDirection={"column"}>
-          <h5>{contact.username}</h5>
+          <h5>
+            {contact?.firstName} {""}
+            {contact?.lastName ? contact?.lastName[0] : ""}
+          </h5>
           <Typography fontSize={12}>Hi</Typography>
         </Box>
 

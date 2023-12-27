@@ -11,12 +11,13 @@ import Loading from "../components/Loading";
 import TeamsLogo from "../components/TeamsLogo";
 import CustomLayout from "../layouts/CustomLayout";
 import PurpleButton from "../components/buttons/PurpleButton";
+import PasswordInput from "../components/inputs/PasswordInput";
 
 function Register() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [values, setValues] = useState({
-    username: "",
+    // username: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -46,14 +47,15 @@ function Register() {
     if (handleValidation()) {
       setLoading(true);
       console.log("in validation", registerRoute);
-      const { password, username, email, lastName, firstName } = values;
+      const { password, email, lastName, firstName, confirmPassword } = values;
       console.log("vaues :", values);
       const { data } = await axios.post(registerRoute, {
-        username,
+        // username,
         email,
         password,
         firstName,
         lastName,
+        confirmPassword,
       });
 
       console.log("data :", data);
@@ -73,14 +75,13 @@ function Register() {
   };
 
   const handleValidation = () => {
-    const { password, confirmPassword, username, email, firstName, lastName } =
-      values;
+    const { password, confirmPassword, email, firstName, lastName } = values;
     if (password !== confirmPassword) {
       toast.error("PW & CF should be da same", toastStyle);
       return false;
-    } else if (username.length < 3) {
-      toast.error("Username shoudl be longer than 3 characters", toastStyle);
-      return false;
+      // } else if (username.length < 3) {
+      //   toast.error("Username shoudl be longer than 3 characters", toastStyle);
+      //   return false;
     } else if (password.length < 5) {
       toast.error("password shoudl be longer than 5 characters", toastStyle);
       return false;
@@ -94,6 +95,16 @@ function Register() {
   const handleChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
+
+  const handleClickPassword = () => {
+    setShowPassword((prev) => !prev);
+  };
+
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const [confirmPassword, setConfirmPassword] = useState(false);
+
   return (
     <CustomLayout>
       <FormContainer>
@@ -105,15 +116,12 @@ function Register() {
               <img src={Logo} alt="" />
               <h1>TeamsCLONE</h1>
             </div> */}
-
             <TeamsLogo />
-
-            <CustomInput
+            {/* <CustomInput
               placeholder="UserName"
               name="username"
               onChange={(e) => handleChange(e)}
-            />
-
+            /> */}
             <CustomInput
               placeholder="First Name"
               name="firstName"
@@ -124,29 +132,39 @@ function Register() {
               name="lastName"
               onChange={(e) => handleChange(e)}
             />
-
             <CustomInput
               placeholder="Email"
               name="email"
               onChange={(e) => handleChange(e)}
             />
+            <PasswordInput
+              name="password"
+              placeholder="password"
+              onChange={(e) => handleChange(e)}
+              handleClickPassword={()=>setShowPassword(!showPassword)}
+              showPassword={showPassword}
+            />
 
-            <CustomInput
+            <PasswordInput
+              name="confirmPassword"
+              onChange={(e) => handleChange(e)}
+              handleClickPassword={()=>setShowConfirmPassword(!showConfirmPassword)}
+              showPassword={showConfirmPassword}
+            />
+
+            {/* <CustomInput
               type="password"
               placeholder="password"
               name="password"
               onChange={(e) => handleChange(e)}
             />
-
             <CustomInput
               type="password"
               placeholder="Confirm Password"
               name="confirmPassword"
               onChange={(e) => handleChange(e)}
-            />
-
+            /> */}
             <PurpleButton onClick={handleSubmit} text="Create user" />
-
             <Typography textTransform={"uppercase"} textDecoration="none">
               Already have an account ??{" "}
               <Link

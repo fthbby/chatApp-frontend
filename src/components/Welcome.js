@@ -12,7 +12,7 @@ export default function Main({ currentUser }) {
       <Box component={"img"} src={Welcome} alt="welcome" height={"20rem"} />
       <Box display={"flex"} flexDirection={"row"}>
         <Typography variant="h4">Welcome,</Typography>
-        <Typography variant='h4' color="purple"> {currentUser?.username}!</Typography>
+        <Typography variant='h4' color="purple"> {currentUser?.firstName}!</Typography>
       </Box>
 
       <h3>Please select a chat to start messaging :)</h3>

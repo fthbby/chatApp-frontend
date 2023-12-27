@@ -6,7 +6,7 @@ function Bubble({ message, currentChat, formatDate }) {
     <Box
       style={message.fromSelf ? styles.sentBubble : styles.receivedBubble}
       padding={1}
-      width={message.fromSelf ? "100%" : "51%"}
+      maxWidth={message.fromSelf ? 400 : 400}
     >
       <Box>
         {!message.fromSelf
