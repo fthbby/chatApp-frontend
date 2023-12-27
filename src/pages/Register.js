@@ -112,10 +112,6 @@ function Register() {
           <Loading />
         ) : (
           <form onSubmit={(event) => handleSubmit(event)}>
-            {/* <div className="brand">
-              <img src={Logo} alt="" />
-              <h1>TeamsCLONE</h1>
-            </div> */}
             <TeamsLogo />
             {/* <CustomInput
               placeholder="UserName"
@@ -139,31 +135,22 @@ function Register() {
             />
             <PasswordInput
               name="password"
-              placeholder="password"
+              placeholder="Password"
               onChange={(e) => handleChange(e)}
-              handleClickPassword={()=>setShowPassword(!showPassword)}
+              handleClickPassword={() => setShowPassword(!showPassword)}
               showPassword={showPassword}
             />
 
             <PasswordInput
-              name="confirmPassword"
-              onChange={(e) => handleChange(e)}
-              handleClickPassword={()=>setShowConfirmPassword(!showConfirmPassword)}
-              showPassword={showConfirmPassword}
-            />
-
-            {/* <CustomInput
-              type="password"
-              placeholder="password"
-              name="password"
-              onChange={(e) => handleChange(e)}
-            />
-            <CustomInput
-              type="password"
               placeholder="Confirm Password"
               name="confirmPassword"
               onChange={(e) => handleChange(e)}
-            /> */}
+              handleClickPassword={() =>
+                setShowConfirmPassword(!showConfirmPassword)
+              }
+              showPassword={showConfirmPassword}
+            />
+
             <PurpleButton onClick={handleSubmit} text="Create user" />
             <Typography textTransform={"uppercase"} textDecoration="none">
               Already have an account ??{" "}
@@ -201,7 +188,7 @@ const FormContainer = styled.div`
     input {
       background-color: transparent;
       padding: 1rem;
-      border: 0.1rem solid #5558ae;
+      ${'' /* border: 0.1rem solid #5558ae; */}
       border-radius: 0.4rem;
 
       &:focus: {

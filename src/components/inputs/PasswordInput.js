@@ -1,11 +1,5 @@
 import React, { useState } from "react";
-import {
-  Input,
-  Box,
-  InputAdornment,
-  IconButton,
-  TextField,
-} from "@mui/material";
+import { Box, InputAdornment, IconButton, TextField } from "@mui/material";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
@@ -33,7 +27,7 @@ const PasswordInput = ({
       sx={{
         borderRadius: "0.4rem",
         overflow: "hidden", // Ensure the border-radius is applied correctly
-        border: `1px solid ${isFocused ? "orange" : "black"}`,
+        border: `2px solid ${isFocused ? "orange" : "black"}`,
         // padding:'1rem'
       }}
     >
@@ -52,11 +46,7 @@ const PasswordInput = ({
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">
-              <IconButton
-                onClick={handleClickPassword}
-                edge="end"
-                size="large"
-              >
+              <IconButton onClick={handleClickPassword} edge="end" size="large">
                 {showPassword ? <Visibility /> : <VisibilityOff />}
               </IconButton>
             </InputAdornment>

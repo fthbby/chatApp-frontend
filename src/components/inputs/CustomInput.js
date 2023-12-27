@@ -25,8 +25,8 @@ const CustomInput = ({
       sx={{
         borderRadius: "0.4rem",
         overflow: "hidden", // Ensure the border-radius is applied correctly
-        border: `1px solid ${isFocused ? "orange" : "black"}`,
-        // padding:'1rem'
+        border: `2px solid ${isFocused ? "orange" : "black"}`,
+        
       }}
     >
       <Input

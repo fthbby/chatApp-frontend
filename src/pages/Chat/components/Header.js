@@ -77,7 +77,7 @@ export default function Header({
             }}
             sx={{ marginTop: 2.5 }}
             options={contacts}
-            getOptionLabel={(option) => option.username}
+            getOptionLabel={(option) => option?.firstName +' '+ option?.lastName}
             renderInput={(params) => (
               <TextField
                 {...params}
