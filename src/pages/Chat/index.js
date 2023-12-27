@@ -9,6 +9,7 @@ import ChatContainer from "./components/ChatContainer";
 import Header from "./components/Header";
 import Contacts from "../Chat/components/Contacts";
 import CustomLayout from "../../layouts/CustomLayout";
+import PhotoModal from "../../components/settings/PhotoModal";
 
 export default function Chat() {
   const socket = useRef();
@@ -60,8 +61,11 @@ export default function Chat() {
     getAllContacts();
   }, [currentUser]);
 
+  const [photoModal, setPhotoModal] = useState(true)
+
   return (
     <CustomLayout>
+    <PhotoModal open={photoModal} onClose={()=>setPhotoModal(false)} user={currentUser}/>
       <Box
         height={"100vh"}
         width={"100vw"}
