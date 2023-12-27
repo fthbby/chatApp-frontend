@@ -3,26 +3,39 @@ import { Box, Button, Typography, Modal, Grid, Avatar } from "@mui/material";
 import GreyButton from "../buttons/GreyButton";
 import PhotoModal from "./PhotoModal";
 import { useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { userAtom } from "../../stateManagement/userAtom";
 
-function UserInfo({ user, setManage }) {
+function UserInfo({ setManage }) {
   const [open, setOpen] = useState(false);
+  const [user, setUser] = useRecoilState(userAtom);
+
   const navigate = useNavigate();
   const onProfilePhoto = () => {
     setOpen(true);
   };
 
   const signOut = () => {
-    localStorage.removeItem("chat-app-user");
+    localStorage.clear()
     navigate("/login");
   };
 
   return (
     <Box border={"1px solid gray"} borderRadius={1} padding={2}>
       <Box display={"flex"} flexDirection={"row"} mb={3}>
-        <Avatar
-          sx={{ width: 50, height: 50, mr: 2, cursor: "pointer" }}
-          onClick={onProfilePhoto}
-        />
+        {user.image ? (
+          <Avatar
+            src={user.image}
+            sx={{ width: 50, height: 50, mr: 2, cursor: "pointer" }}
+            onClick={onProfilePhoto}
+          />
+        ) : (
+          <Avatar
+            sx={{ width: 50, height: 50, mr: 2, cursor: "pointer" }}
+            onClick={onProfilePhoto}
+          />
+        )}
+
         <Box>
           <Typography fontWeight={600}>{user?.username}</Typography>
           <Typography>

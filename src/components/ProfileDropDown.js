@@ -16,9 +16,12 @@ import Tooltip from "@mui/material/Tooltip";
 import { useNavigate } from "react-router-dom";
 import ContactMailIcon from "@mui/icons-material/ContactMail";
 import SettingsModal from "./settings/SettingsModal";
+import { userAtom } from "../stateManagement/userAtom";
+import { useRecoilState } from "recoil";
 
 export default function BasicMenu({ currentUser }) {
   const navigate = useNavigate();
+  const [user, setUser] = useRecoilState(userAtom);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const [openModal, setOpenModal] = useState(false);
@@ -55,10 +58,17 @@ export default function BasicMenu({ currentUser }) {
               aria-haspopup="true"
               aria-expanded={open ? "true" : undefined}
             >
-              <Avatar sx={{ borderRadius: 25, width: 45, height: 45 }}>
-                {currentUser?.firstName[0].toUpperCase()}
-                {currentUser?.lastName[0].toUpperCase()}
-              </Avatar>
+              {user.image ? (
+                <Avatar
+                  sx={{ borderRadius: 25, width: 45, height: 45 }}
+                  src={user.image}
+                />
+              ) : (
+                <Avatar sx={{ borderRadius: 25, width: 45, height: 45 }}>
+                  {currentUser?.firstName[0].toUpperCase()}
+                  {currentUser?.lastName[0].toUpperCase()}
+                </Avatar>
+              )}
             </IconButton>
           </Tooltip>
         </Box>
@@ -99,7 +109,18 @@ export default function BasicMenu({ currentUser }) {
         >
           <MenuItem onClick={handleClose}>
             <Box display={"flex"}>
-              <Avatar style={{ width: 75, height: 75 }} />
+              {/* <Avatar style={{ width: 75, height: 75 }} /> */}
+              {user.image ? (
+                <Avatar
+                  sx={{ borderRadius: 25, width: 75, height: 75 }}
+                  src={user.image}
+                />
+              ) : (
+                <Avatar sx={{ borderRadius: 25, width: 75, height: 75 }}>
+                  {currentUser?.firstName[0].toUpperCase()}
+                  {currentUser?.lastName[0].toUpperCase()}
+                </Avatar>
+              )}
 
               <Box display="flex" flexDirection={"column"}>
                 <Typography>{currentUser?.username}</Typography>

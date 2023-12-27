@@ -65,7 +65,7 @@ export default function Chat() {
 
   return (
     <CustomLayout>
-    <PhotoModal open={photoModal} onClose={()=>setPhotoModal(false)} user={currentUser}/>
+    {/* <PhotoModal open={photoModal} onClose={()=>setPhotoModal(false)} user={currentUser}/> */}
       <Box
         height={"100vh"}
         width={"100vw"}

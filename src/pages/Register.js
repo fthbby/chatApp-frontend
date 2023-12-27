@@ -17,7 +17,6 @@ function Register() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [values, setValues] = useState({
-    // username: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -50,15 +49,12 @@ function Register() {
       const { password, email, lastName, firstName, confirmPassword } = values;
       console.log("vaues :", values);
       const { data } = await axios.post(registerRoute, {
-        // username,
         email,
         password,
         firstName,
         lastName,
         confirmPassword,
       });
-
-      console.log("data :", data);
 
       if (data.status === false) {
         setLoading(false);
@@ -94,10 +90,6 @@ function Register() {
 
   const handleChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
-  };
-
-  const handleClickPassword = () => {
-    setShowPassword((prev) => !prev);
   };
 
   const [showPassword, setShowPassword] = useState(false);
@@ -188,7 +180,7 @@ const FormContainer = styled.div`
     input {
       background-color: transparent;
       padding: 1rem;
-      ${'' /* border: 0.1rem solid #5558ae; */}
+      ${"" /* border: 0.1rem solid #5558ae; */}
       border-radius: 0.4rem;
 
       &:focus: {

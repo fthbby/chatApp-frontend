@@ -1,6 +1,5 @@
 import React from "react";
-import { Box, Grid, Typography } from "@mui/material";
-import avatar from "../../../../assets/avatar.jpg";
+import { Avatar, Box, Typography } from "@mui/material";
 
 function ContactsCard({ contact, index, changeCurrentChat, currentSelected }) {
   return (
@@ -18,12 +17,14 @@ function ContactsCard({ contact, index, changeCurrentChat, currentSelected }) {
       backgroundColor={`${index === currentSelected ? "#ECEBE7" : ""}`}
       onClick={() => changeCurrentChat(index, contact)}
     >
-      <Box
-        component={"img"}
-        src={avatar}
-        borderRadius={"50%"}
-        height={"3rem"}
-      />
+      {contact.image.length > 0 ? (
+        <Avatar src={contact.image} />
+      ) : (
+        <Avatar>
+          {contact.firstName[0].toUpperCase()}
+          {contact.lastName[0].toUpperCase()}
+        </Avatar>
+      )}
       <Box
         display={"flex"}
         justifyContent={"space-between"}
