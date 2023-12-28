@@ -5,7 +5,7 @@ import { useRecoilState } from "recoil";
 import { userAtom } from "../../../../stateManagement/userAtom";
 
 export default function Contacts({
-  contacts,
+  contacts=[],
   handleChatChange,
   currentSelected,
   setCurrentSelected,

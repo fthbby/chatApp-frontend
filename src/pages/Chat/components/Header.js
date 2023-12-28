@@ -8,7 +8,7 @@ import { userAtom } from "../../../stateManagement/userAtom";
 
 export default function Header({
   currentUser,
-  contacts,
+  contacts=[],
   handleChatChange,
   setCurrentSelected,
 }) {
@@ -21,7 +21,7 @@ export default function Header({
     handleChatChange(contact);
   };
 
-  const filteredContacts = contacts.filter((data) => data._id !== user._id);
+  const filteredContacts = contacts?.filter((data) => data._id !== user._id);
 
   return (
     <Container>

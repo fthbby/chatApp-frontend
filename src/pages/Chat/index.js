@@ -30,8 +30,8 @@ export default function Chat() {
     try {
       if (currentUser) {
         let res = await axios.get(`${allUsersRoute}`); 
-        console.log("get all users res :", res.data);
-        setContacts(res.data);
+        console.log("get all users res :", res.data.data);
+        setContacts(res?.data.data);
       } else console.log("no current user so cant pull contacts");
     } catch (err) {}
   };
