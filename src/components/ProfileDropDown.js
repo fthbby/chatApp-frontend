@@ -109,14 +109,13 @@ export default function BasicMenu({ currentUser }) {
         >
           <MenuItem onClick={handleClose}>
             <Box display={"flex"}>
-              {/* <Avatar style={{ width: 75, height: 75 }} /> */}
               {user.image ? (
                 <Avatar
-                  sx={{ borderRadius: 25, width: 75, height: 75 }}
+                  sx={{ borderRadius: 25, width: 70, height: 70 }}
                   src={user.image}
                 />
               ) : (
-                <Avatar sx={{ borderRadius: 25, width: 75, height: 75 }}>
+                <Avatar sx={{ borderRadius: 25, width: 70, height: 70, fontSize:30, mr:2 }}>
                   {currentUser?.firstName[0].toUpperCase()}
                   {currentUser?.lastName[0].toUpperCase()}
                 </Avatar>

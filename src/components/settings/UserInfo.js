@@ -20,12 +20,17 @@ function UserInfo({ setManage }) {
     navigate("/login");
   };
 
+  useEffect(() => {
+    console.log('User state changed:', user);
+    // Any additional actions you want to perform on user state change
+  }, [user]);
+  
   return (
     <Box border={"1px solid gray"} borderRadius={1} padding={2}>
       <Box display={"flex"} flexDirection={"row"} mb={3}>
-        {user.image ? (
+        {user?.image ? (
           <Avatar
-            src={user.image}
+            src={user?.image}
             sx={{ width: 50, height: 50, mr: 2, cursor: "pointer" }}
             onClick={onProfilePhoto}
           />
@@ -37,12 +42,11 @@ function UserInfo({ setManage }) {
         )}
 
         <Box>
-          <Typography fontWeight={600}>{user?.username}</Typography>
           <Typography>
             {user?.firstName} {user?.lastName}
           </Typography>
 
-          <Typography>{user.email}</Typography>
+          <Typography>{user?.email}</Typography>
         </Box>
       </Box>
 

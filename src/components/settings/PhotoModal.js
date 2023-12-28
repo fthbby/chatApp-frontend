@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Box, Button, Typography, Modal, Grid, Avatar } from "@mui/material";
+import { Box, Button, Typography, Modal, Avatar } from "@mui/material";
 import GreyButton from "../buttons/GreyButton";
 import { useRecoilState } from "recoil";
 import { userAtom } from "../../stateManagement/userAtom";
@@ -10,6 +10,11 @@ function PhotoModal({ open, onClose }) {
   const [user, setUser] = useRecoilState(userAtom);
   const [image, setImage] = useState();
 
+  const closeModal = () => {
+    setImage(null);
+    onClose();
+  };
+  
   const convertToBase64 = (e) => {
     let reader = new FileReader();
     reader.readAsDataURL(e.target.files[0]);
@@ -39,8 +44,17 @@ function PhotoModal({ open, onClose }) {
     })
       .then((res) => res.json())
       .then((data) => {
-        setUser({ ...user, image: data.image });
-        console.log("new data:", data);
+        console.log("data:", data);
+        console.log("Before update:", user);
+        setUser({
+          ...user,
+          image: data.image,
+          isAvatarImageSet: data.isAvatarImageSet,
+        });
+
+        if (data.success) {
+          closeModal();
+        }
       });
   };
 
@@ -49,14 +63,22 @@ function PhotoModal({ open, onClose }) {
       let res = await axios.put(removeAvatar, {
         id: user._id,
       });
-      console.log("res :", res);
+
+      if (res.data.success) {
+        setUser({
+          ...user,
+          image: res.data.image,
+          isAvatarImageSet: res.data.isAvatarImageSet,
+        });
+        closeModal();
+      }
     } catch (err) {
       console.log("err :", err);
     }
   };
 
   return (
-    <Modal open={open} onClose={onClose}>
+    <Modal open={open} onClose={closeModal}>
       <Box
         style={styles}
         backgroundColor="white"
@@ -79,10 +101,16 @@ function PhotoModal({ open, onClose }) {
           alignItems={"center"}
         >
           <Box>
-            <input type="file" accept="image/" onChange={convertToBase64} />
-            <Typography onClick={uploadImage} sx={{ cursor: "pointer" }}>
+            <Typography sx={{ cursor: "pointer" }} component="label">
               Upload Picture
+              <input
+                type="file"
+                accept="image/"
+                onChange={convertToBase64}
+                hidden
+              />
             </Typography>
+
             <Typography onClick={deleteAvatar} sx={{ cursor: "pointer" }}>
               Remove Picture
             </Typography>
@@ -97,7 +125,7 @@ function PhotoModal({ open, onClose }) {
         </Box>
 
         <Box display={"flex"} justifyContent={"flex-end"}>
-          <GreyButton text="Close" mr={3} onClick={onClose} />
+          <GreyButton text="Close" mr={3} onClick={closeModal} />
           <GreyButton text="Save" onClick={uploadImage} />
         </Box>
       </Box>
