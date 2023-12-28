@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { useRecoilState } from "recoil";
 import { Box } from "@mui/material";
-import CustomTextField from "../buttons/CustomTextField";
-import GreyButton from "../buttons/GreyButton";
-import { userAtom } from "../../stateManagement/userAtom";
-import { updateUser } from "../../api/routes";
+import CustomTextField from "../../inputs/CustomTextField";
+import GreyButton from "../../buttons/GreyButton";
+import { userAtom } from "../../../stateManagement/userAtom";
+import { updateUser } from "../../../api/routes";
 import axios from "axios";
 
-function ManageAcc({ setManage }) {
+function ManageAcc({ setManage, loading, setLoading }) {
   const [user, setUser] = useRecoilState(userAtom);
   const [profile, setProfile] = useState(user);
 
@@ -23,6 +23,7 @@ function ManageAcc({ setManage }) {
 
   const handleSubmit = async () => {
     try {
+      setLoading(true);
       let id = profile._id;
 
       let res = await axios.put(updateUser, {
@@ -33,6 +34,7 @@ function ManageAcc({ setManage }) {
       });
 
       if (res.data.success) {
+        setLoading(false);
         setUser({
           ...user,
           firstName: profile.firstName,
@@ -42,6 +44,8 @@ function ManageAcc({ setManage }) {
 
         setManage(false);
       }
+
+      setLoading(false);
     } catch (err) {
       console.log(err);
     }

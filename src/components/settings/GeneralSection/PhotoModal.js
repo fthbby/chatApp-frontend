@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Box, Button, Typography, Modal, Avatar } from "@mui/material";
-import GreyButton from "../buttons/GreyButton";
+import GreyButton from "../../buttons/GreyButton";
 import { useRecoilState } from "recoil";
-import { userAtom } from "../../stateManagement/userAtom";
-import { removeAvatar } from "../../api/routes";
+import { userAtom } from "../../../stateManagement/userAtom";
+import { removeAvatar } from "../../../api/routes";
 import axios from "axios";
 
 function PhotoModal({ open, onClose }) {

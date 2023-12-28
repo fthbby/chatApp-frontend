@@ -9,7 +9,8 @@ import ChatContainer from "./components/ChatContainer";
 import Header from "./components/Header";
 import Contacts from "../Chat/components/Contacts";
 import CustomLayout from "../../layouts/CustomLayout";
-import PhotoModal from "../../components/settings/PhotoModal";
+import PhotoModal from "../../components/settings/GeneralSection/PhotoModal";
+
 
 export default function Chat() {
   const socket = useRef();

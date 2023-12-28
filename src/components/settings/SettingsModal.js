@@ -4,9 +4,11 @@ import CloseIcon from "@mui/icons-material/Close";
 import SettingsIcon from "@mui/icons-material/Settings";
 import ContactMailIcon from "@mui/icons-material/ContactMail";
 import GeneralSection from "./GeneralSection";
+import Loading from "../Loading";
 
 function SettingsModal({ open, onClose }) {
   const [isActive, setIsActive] = useState("General");
+  const [loading, setLoading] = useState(false);
 
   const navItems = [
     { title: "General", icon: <SettingsIcon sx={{ mr: 1, color: "gray" }} /> },
@@ -56,7 +58,7 @@ function SettingsModal({ open, onClose }) {
           <Grid item md={7} xs={7}>
             {isActive == "General" && (
               <>
-                <GeneralSection />
+                <GeneralSection loading={loading} setLoading={setLoading} />
               </>
             )}
 

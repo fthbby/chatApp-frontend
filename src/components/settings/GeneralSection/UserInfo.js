@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Box, Button, Typography, Avatar } from "@mui/material";
-import GreyButton from "../buttons/GreyButton";
+import GreyButton from "../../buttons/GreyButton";
 import PhotoModal from "./PhotoModal";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
-import { userAtom } from "../../stateManagement/userAtom";
+import { userAtom } from "../../../stateManagement/userAtom";
 
 function UserInfo({ setManage, manage }) {
   const [open, setOpen] = useState(false);
