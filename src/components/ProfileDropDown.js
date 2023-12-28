@@ -52,7 +52,7 @@ export default function BasicMenu({}) {
             aria-haspopup="true"
             aria-expanded={open ? "true" : undefined}
           >
-            {user && user?.image?.length > 0  ? (
+            {user && user !== undefined   ? (
               <Avatar
                 sx={{ borderRadius: 25, width: 45, height: 45 }}
                 src={user.image}
@@ -77,7 +77,7 @@ export default function BasicMenu({}) {
       >
         <MenuItem onClick={handleClose}>
           <Box display={"flex"}>
-            {user && user?.image?.length > 0 ? (
+            {user && user !== undefined ? (
               <Avatar
                 sx={{ borderRadius: 25, width: 70, height: 70, mr: 2 }}
                 src={user?.image}
