@@ -10,7 +10,7 @@ import Header from "./components/Header";
 import Contacts from "../Chat/components/Contacts";
 import CustomLayout from "../../layouts/CustomLayout";
 import PhotoModal from "../../components/settings/GeneralSection/PhotoModal";
-
+import Loading from "../../components/Loading";
 
 export default function Chat() {
   const socket = useRef();
@@ -29,9 +29,14 @@ export default function Chat() {
   const getAllContacts = async () => {
     try {
       if (currentUser) {
-        let res = await axios.get(`${allUsersRoute}`); 
+        setLoading(true);
+        let res = await axios.get(allUsersRoute);
         console.log("get all users res :", res.data.data);
-        setContacts(res?.data.data);
+        if (res.data.success) {
+          setLoading(false);
+          setContacts(res?.data.data);
+        }
+        setLoading(false);
       } else console.log("no current user so cant pull contacts");
     } catch (err) {}
   };
@@ -62,11 +67,11 @@ export default function Chat() {
     getAllContacts();
   }, [currentUser]);
 
-  const [photoModal, setPhotoModal] = useState(true)
+  const [photoModal, setPhotoModal] = useState(true);
 
   return (
     <CustomLayout>
-    {/* <PhotoModal open={photoModal} onClose={()=>setPhotoModal(false)} user={currentUser}/> */}
+      {/* <PhotoModal open={photoModal} onClose={()=>setPhotoModal(false)} user={currentUser}/> */}
       <Box
         height={"100vh"}
         width={"100vw"}
@@ -92,13 +97,16 @@ export default function Chat() {
             height={"85vh"}
             width={"85vh"}
           >
-            <Contacts
-              contacts={contacts}
-              currentUser={currentUser}
-              handleChatChange={handleChatChange}
-              currentSelected={currentSelected}
-              setCurrentSelected={setCurrentSelected}
-            />
+         
+              <Contacts
+              loading={loading}
+                contacts={contacts}
+                currentUser={currentUser}
+                handleChatChange={handleChatChange}
+                currentSelected={currentSelected}
+                setCurrentSelected={setCurrentSelected}
+              />
+    
 
             {isLoaded && currentChat === undefined ? (
               <Welcome currentUser={currentUser} />
