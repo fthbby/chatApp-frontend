@@ -83,7 +83,7 @@ export default function BasicMenu({  }) {
               {user?.image ? (
                 <Avatar
                   sx={{ borderRadius: 25, width: 70, height: 70, mr: 2 }}
-                  src={user.image}
+                  src={user?.image}
                 />
               ) : (
                 <Avatar

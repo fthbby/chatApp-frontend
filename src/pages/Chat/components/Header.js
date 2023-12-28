@@ -102,7 +102,7 @@ export default function Header({
         </Grid>
 
         <Grid item md={1} display={"flex"} alignItems={"center"}>
-          <ProfileDropDown currentUser={currentUser} />
+          {/* <ProfileDropDown currentUser={currentUser} /> */}
         </Grid>
       </Grid>
     </Container>
