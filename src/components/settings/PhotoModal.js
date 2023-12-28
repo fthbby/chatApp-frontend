@@ -3,6 +3,8 @@ import { Box, Button, Typography, Modal, Grid, Avatar } from "@mui/material";
 import GreyButton from "../buttons/GreyButton";
 import { useRecoilState } from "recoil";
 import { userAtom } from "../../stateManagement/userAtom";
+import { removeAvatar } from "../../api/routes";
+import axios from "axios";
 
 function PhotoModal({ open, onClose }) {
   const [user, setUser] = useRecoilState(userAtom);
@@ -21,7 +23,7 @@ function PhotoModal({ open, onClose }) {
   };
 
   const uploadImage = (e) => {
-    fetch(`${process.env.REACT_APP_BACKEND_URL}/api/auth/upload-image`, {
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/api/user/image`, {
       method: "POST",
       crossDomain: true,
       headers: {
@@ -38,8 +40,19 @@ function PhotoModal({ open, onClose }) {
       .then((res) => res.json())
       .then((data) => {
         setUser({ ...user, image: data.image });
-        console.log(data);
+        console.log("new data:", data);
       });
+  };
+
+  const deleteAvatar = async () => {
+    try {
+      let res = await axios.put(removeAvatar, {
+        id: user._id,
+      });
+      console.log("res :", res);
+    } catch (err) {
+      console.log("err :", err);
+    }
   };
 
   return (
@@ -57,10 +70,6 @@ function PhotoModal({ open, onClose }) {
           <Typography id="modal-modal-title" variant="h6">
             Change your profile picture
           </Typography>
-          {/* <CloseIcon
-            onClick={onClose}
-            sx={{ cursor: "pointer", color: "gray" }}
-          /> */}
         </Box>
 
         <Box
@@ -74,7 +83,9 @@ function PhotoModal({ open, onClose }) {
             <Typography onClick={uploadImage} sx={{ cursor: "pointer" }}>
               Upload Picture
             </Typography>
-            <Typography>Remove Picture</Typography>
+            <Typography onClick={deleteAvatar} sx={{ cursor: "pointer" }}>
+              Remove Picture
+            </Typography>
           </Box>
           {user && user?.image ? (
             <Avatar sx={{ width: 100, height: 100 }} src={user.image} />

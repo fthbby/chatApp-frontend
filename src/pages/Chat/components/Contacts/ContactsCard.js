@@ -13,16 +13,16 @@ function ContactsCard({ contact, index, changeCurrentChat, currentSelected }) {
       alignItems={"center"}
       display={"flex"}
       transition={"0.5s ease-in-out"}
-      key={contact._id}
+      key={contact?._id}
       backgroundColor={`${index === currentSelected ? "#ECEBE7" : ""}`}
       onClick={() => changeCurrentChat(index, contact)}
     >
-      {contact.image.length > 0 ? (
-        <Avatar src={contact.image} />
+      {contact?.image?.length > 0 ? (
+        <Avatar src={contact?.image} />
       ) : (
         <Avatar>
-          {contact.firstName[0].toUpperCase()}
-          {contact.lastName[0].toUpperCase()}
+          {contact?.firstName[0].toUpperCase()}
+          {contact?.lastName[0].toUpperCase()}
         </Avatar>
       )}
       <Box
