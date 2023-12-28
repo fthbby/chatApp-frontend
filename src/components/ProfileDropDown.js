@@ -52,15 +52,15 @@ export default function BasicMenu({}) {
             aria-haspopup="true"
             aria-expanded={open ? "true" : undefined}
           >
-            {user.image ? (
+            {user.image.length > 0  ? (
               <Avatar
                 sx={{ borderRadius: 25, width: 45, height: 45 }}
                 src={user.image}
               />
             ) : (
               <Avatar sx={{ borderRadius: 25, width: 45, height: 45 }}>
-                {user?.firstName[0].toUpperCase()}
-                {user?.lastName[0].toUpperCase()}
+                {user?.firstName[0]?.toUpperCase()}
+                {user?.lastName[0]?.toUpperCase()}
               </Avatar>
             )}
           </IconButton>
