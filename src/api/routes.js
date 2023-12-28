@@ -9,3 +9,4 @@ export const allUsersRoute = `${host}user/allusers`
 
 export const setAvatarRoute = `${host}user/image`
 export const removeAvatar = `${host}user/image`
+export const updateUser = `${host}user/`

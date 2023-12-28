@@ -16,7 +16,7 @@ import SettingsModal from "./settings/SettingsModal";
 import { userAtom } from "../stateManagement/userAtom";
 import { useRecoilState } from "recoil";
 
-export default function BasicMenu({ currentUser }) {
+export default function BasicMenu({  }) {
   const navigate = useNavigate();
   const [user, setUser] = useRecoilState(userAtom);
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -62,8 +62,8 @@ export default function BasicMenu({ currentUser }) {
                 />
               ) : (
                 <Avatar sx={{ borderRadius: 25, width: 45, height: 45 }}>
-                  {currentUser?.firstName[0].toUpperCase()}
-                  {currentUser?.lastName[0].toUpperCase()}
+                  {user?.firstName[0].toUpperCase()}
+                  {user?.lastName[0].toUpperCase()}
                 </Avatar>
               )}
             </IconButton>
@@ -95,14 +95,14 @@ export default function BasicMenu({ currentUser }) {
                     mr: 2,
                   }}
                 >
-                  {currentUser?.firstName[0].toUpperCase()}
-                  {currentUser?.lastName[0].toUpperCase()}
+                  {user?.firstName[0].toUpperCase()}
+                  {user?.lastName[0].toUpperCase()}
                 </Avatar>
               )}
 
-              <Box display="flex" flexDirection={"column"}>
-                <Typography>{currentUser?.username}</Typography>
-                <Typography color="gray">{currentUser?.email}</Typography>
+              <Box display="flex" flexDirection={"column"} justifyContent={'center'}>
+                <Typography>{user?.firstName} {user?.lastName}</Typography>
+                <Typography color="gray">{user?.email}</Typography>
                 <Typography>Available</Typography>
               </Box>
             </Box>

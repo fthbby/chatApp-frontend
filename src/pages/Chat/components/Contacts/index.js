@@ -12,7 +12,7 @@ export default function Contacts({
 }) {
   const [recent, setRecent] = useState(false);
   const [user, setUser] = useRecoilState(userAtom)
-  
+
   const changeCurrentChat = (index, contact) => {
     setCurrentSelected(index);
     handleChatChange(contact);
@@ -22,7 +22,6 @@ export default function Contacts({
 
   return (
     <>
-      {/* {currentUserName && ( */}
       <Box
         backgroundColor="#fefefc"
         // boxShadow={"0px 2px 5px rgba(0, 0, 0, 0.1)"}

@@ -1,13 +1,12 @@
 import { useState } from "react";
 import styled from "styled-components";
 import TeamsLogo from "../../../assets/TeamsLogo.png";
-import { Autocomplete, TextField, Box, Grid } from "@mui/material/";
+import { Autocomplete, TextField, Box, Grid, Typography } from "@mui/material/";
 import ProfileDropDown from "../../../components/ProfileDropDown";
-import AccountCircle from "@mui/icons-material/AccountCircle";
-import SearchIcon from "@mui/icons-material/Search";
+import { useRecoilState } from "recoil";
+import { userAtom } from "../../../stateManagement/userAtom";
 
 export default function Header({
-  currentChat,
   currentUser,
   contacts,
   handleChatChange,
@@ -15,11 +14,14 @@ export default function Header({
 }) {
   const [focus, setFocus] = useState(false);
   const [selectedValue, setSelectedValue] = useState(null);
+  const [user, setUser] = useRecoilState(userAtom);
 
   const changeCurrentChat = (index, contact) => {
     setCurrentSelected(index);
     handleChatChange(contact);
   };
+
+  const filteredContacts = contacts.filter((data) => data._id !== user._id);
 
   return (
     <Container>
@@ -47,24 +49,10 @@ export default function Header({
             }}
           >
             <Box component="img" src={TeamsLogo} alt="logo" height={"2rem"} />
-            {/* <h4>Teams</h4> */}
+            <Typography color='white' fontSize={14}>TeamsClone</Typography>
           </Box>
         </Grid>
         <Grid item xs={7} md={7}>
-          {/* <Input
-            sx={{ marginTop: "1rem", width: "100%" }}
-            onFocus={() => setFocus(true)}
-            onBlur={() => setFocus(false)}
-            disableUnderline
-            placeholder={focus ? "Search for people and chats" : "Search"}
-            className={focus ? "focusInput" : "input"}
-            startAdornment={
-              <InputAdornment position="start">
-                {!focus && <SearchIcon />}
-              </InputAdornment>
-            }
-          /> */}
-
           <Autocomplete
             value={selectedValue}
             onChange={(event, value) => {
@@ -76,8 +64,10 @@ export default function Header({
               }
             }}
             sx={{ marginTop: 2.5 }}
-            options={contacts}
-            getOptionLabel={(option) => option?.firstName +' '+ option?.lastName}
+            options={filteredContacts}
+            getOptionLabel={(option) =>
+              option?.firstName + " " + option?.lastName
+            }
             renderInput={(params) => (
               <TextField
                 {...params}

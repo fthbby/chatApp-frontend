@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import axios from "axios";
 import { useState, useEffect, useRef } from "react";
 import dayjs from "dayjs";
@@ -19,6 +18,7 @@ export default function ChatContainer({ currentChat, currentUser, socket }) {
   const formatDate = (message) => {
     return dayjs(message).format("MM/DD/YYYY hh:mma");
   };
+  
   const handleSendMessage = async (msg) => {
     try {
       let res = await axios.post(sendMessageRoute, {
@@ -32,12 +32,9 @@ export default function ChatContainer({ currentChat, currentUser, socket }) {
         from: currentUser._id,
         msg,
       });
-      console.log("socket", socket);
-
       const msgs = [...messages];
       msgs.push({ fromSelf: true, message: msg });
       setMessages(msgs);
-      console.log("send res :", res);
     } catch (err) {
       console.log(err);
     }
@@ -73,7 +70,6 @@ export default function ChatContainer({ currentChat, currentUser, socket }) {
     }
   };
 
-  console.log("messages :", messages);
   useEffect(() => {
     if (currentChat) {
       getAllMessages();
@@ -117,7 +113,12 @@ export default function ChatContainer({ currentChat, currentUser, socket }) {
                   flexDirection={!message.fromSelf && "row"}
                   alignItems={"center"}
                 >
-                  {!message.fromSelf && <Avatar sx={{ marginRight: 2 }} />}
+                  {!message.fromSelf && (
+                    <Avatar
+                      sx={{ marginRight: 2 }}
+                      src={currentChat.image ? currentChat.image : ""}
+                    />
+                  )}
                   <Box
                     style={message.fromSelf ? styles.sended : styles.received}
                   >
@@ -161,46 +162,3 @@ const styles = {
     backgroundColor: "white",
   },
 };
-
-const Container = styled.div`
-  ${
-    "" /* display: grid;
-  grid-template-rows: 0% 90% 10%;
-  gap: 0.1rem;
-  overflow: hidden; */
-  }
-  ${
-    "" /* @media screen and (min-width: 720px) and (max-width: 1080px) {
-    grid-template-rows: 0% 85% 15%;
-  } */
-  }
-
-  .content {
-    max-width: 40%;
-    overflow-wrap: break-word;
-    padding: 1rem;
-    font-size: 1.1rem;
-    border-radius: 1rem;
-    color: #d1d1d1;
-    @media screen and (min-width: 720px) and (max-width: 1080px) {
-      max-width: 70%;
-    }
-  }
-
-  .chat-messages {
-    padding: 1rem 2rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    overflow: auto;
-
-    &::-webkit-scrollbar {
-      width: 0.2rem;
-      &-thumb {
-        background-color: red;
-        width: 0.1rem;
-        border-radius: 1rem;
-      }
-    }
-  }
-`;

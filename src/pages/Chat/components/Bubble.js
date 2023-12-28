@@ -1,7 +1,11 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
+import dayjs from "dayjs";
 
-function Bubble({ message, currentChat, formatDate }) {
+function Bubble({ message, currentChat }) {
+  const formatDate = (message) => {
+    return dayjs(message).format("MM/DD/YYYY hh:mma");
+  };
   return (
     <Box
       style={message.fromSelf ? styles.sentBubble : styles.receivedBubble}
@@ -10,7 +14,7 @@ function Bubble({ message, currentChat, formatDate }) {
     >
       <Box>
         {!message.fromSelf
-          ? currentChat.username + formatDate(message.createdAt)
+          ? currentChat.firstName + ' ' + currentChat.lastName + ' ' + formatDate(message.createdAt)
           : formatDate(message.createdAt)}
         <Typography
           pt={0.5}

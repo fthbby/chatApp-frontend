@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Box, Button, Typography, Modal, Grid, Avatar } from "@mui/material";
+import { Box, Button, Typography, Avatar } from "@mui/material";
 import GreyButton from "../buttons/GreyButton";
 import PhotoModal from "./PhotoModal";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { userAtom } from "../../stateManagement/userAtom";
 
-function UserInfo({ setManage }) {
+function UserInfo({ setManage, manage }) {
   const [open, setOpen] = useState(false);
   const [user, setUser] = useRecoilState(userAtom);
 
@@ -16,15 +16,10 @@ function UserInfo({ setManage }) {
   };
 
   const signOut = () => {
-    localStorage.clear()
+    localStorage.clear();
     navigate("/login");
   };
 
-  useEffect(() => {
-    console.log('User state changed:', user);
-    // Any additional actions you want to perform on user state change
-  }, [user]);
-  
   return (
     <Box border={"1px solid gray"} borderRadius={1} padding={2}>
       <Box display={"flex"} flexDirection={"row"} mb={3}>
@@ -51,7 +46,12 @@ function UserInfo({ setManage }) {
       </Box>
 
       <Box display={"flex"} justifyContent={"flex-end"}>
-        <GreyButton text="Manage" mr={2} onClick={() => setManage(true)} />
+        <GreyButton
+          text="Manage"
+          mr={2}
+          onClick={() => setManage(!manage)}
+          backgroundColor={manage ? "lightgrey" : "null"}
+        />
         <GreyButton text="Sign Out" onClick={signOut} />
       </Box>
 

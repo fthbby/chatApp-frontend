@@ -9,7 +9,7 @@ function OtherUserHeader({ currentChat }) {
       padding={"2rem 1rem"}
       borderBottom={"1px solid #ABAAAA"}
     >
-      <Avatar sx={{ mr: 2 }} />
+      <Avatar sx={{ mr: 2 }} src={currentChat?.image} />
       <Typography fontWeight={600}>
         {currentChat?.firstName ? (
           <Box>

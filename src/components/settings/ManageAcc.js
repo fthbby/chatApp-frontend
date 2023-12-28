@@ -1,19 +1,78 @@
-import React from "react";
-import { Box, Button, Typography, TextField, Grid, Input } from "@mui/material";
+import React, { useState } from "react";
+import { useRecoilState } from "recoil";
+import { Box } from "@mui/material";
 import CustomTextField from "../buttons/CustomTextField";
 import GreyButton from "../buttons/GreyButton";
+import { userAtom } from "../../stateManagement/userAtom";
+import { updateUser } from "../../api/routes";
+import axios from "axios";
 
-function ManageAcc({ user, setManage }) {
+function ManageAcc({ setManage }) {
+  const [user, setUser] = useRecoilState(userAtom);
+  const [profile, setProfile] = useState(user);
+
+  const handleProfile = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+
+    setProfile((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async () => {
+    try {
+      let id = profile._id;
+
+      let res = await axios.put(updateUser, {
+        id,
+        firstName: profile.firstName,
+        lastName: profile.lastName,
+        email: profile.email,
+      });
+
+      if (res.data.success) {
+        setUser({
+          ...user,
+          firstName: profile.firstName,
+          lastName: profile.lastName,
+          email: profile.email,
+        });
+
+        setManage(false);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <Box border={"1px solid gray"} borderRadius={1} padding={2}>
-      <CustomTextField title="Username" placeholder={user.username} />
-
-      <CustomTextField title="Email" placeholder={user.email} />
-      <CustomTextField title="First Name" placeholder={user.firstName} />
-      <CustomTextField title="Last Name" placeholder={user.lastName} />
+      <CustomTextField
+        title="First Name"
+        name="firstName"
+        value={user?.firstName}
+        handleProfile={handleProfile}
+        profile={profile}
+      />
+      <CustomTextField
+        title="Last Name"
+        name="lastName"
+        value={user.lastName}
+        handleProfile={handleProfile}
+        profile={profile}
+      />
+      <CustomTextField
+        title="Email"
+        name="email"
+        value={user.email}
+        handleProfile={handleProfile}
+        profile={profile}
+      />
 
       <Box pt={5} display={"flex"} justifyContent={"flex-end"}>
-        <GreyButton text="Save" mr={3} />
+        <GreyButton text="Save" mr={3} onClick={handleSubmit} />
         <GreyButton text="Cancel" onClick={() => setManage(false)} />
       </Box>
     </Box>
