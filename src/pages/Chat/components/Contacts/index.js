@@ -1,21 +1,24 @@
 import { useState, useEffect } from "react";
 import { Box, Typography } from "@mui/material";
 import ContactsCard from "./ContactsCard";
+import { useRecoilState } from "recoil";
+import { userAtom } from "../../../../stateManagement/userAtom";
 
 export default function Contacts({
   contacts,
-  // currentUser,
   handleChatChange,
   currentSelected,
   setCurrentSelected,
 }) {
-  const [currentUserImage, setCurrentUserImage] = useState(undefined);
   const [recent, setRecent] = useState(false);
-
+  const [user, setUser] = useRecoilState(userAtom)
+  
   const changeCurrentChat = (index, contact) => {
     setCurrentSelected(index);
     handleChatChange(contact);
   };
+
+  const filteredContacts = contacts.filter((data)=> data._id !== user._id)
 
   return (
     <>
@@ -63,7 +66,7 @@ export default function Contacts({
             ""
           ) : (
             <>
-              {contacts.map((contact, index) => (
+              {filteredContacts?.map((contact, index) => (
                 <ContactsCard
                   contact={contact}
                   index={index}
