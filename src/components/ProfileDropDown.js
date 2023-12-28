@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import {
-  Button,
   Menu,
   MenuItem,
   Box,
@@ -9,10 +8,8 @@ import {
   IconButton,
   Divider,
   ListItemIcon,
-  Grid,
 } from "@mui/material";
 import Tooltip from "@mui/material/Tooltip";
-// import Logout from '@mui/icons-material/Logout';
 import { useNavigate } from "react-router-dom";
 import ContactMailIcon from "@mui/icons-material/ContactMail";
 import SettingsModal from "./settings/SettingsModal";
@@ -78,32 +75,6 @@ export default function BasicMenu({ currentUser }) {
           open={open}
           onClose={handleClose}
           onClick={handleClose}
-          // PaperProps={{
-          //   elevation: 0,
-          //   sx: {
-          //     overflow: "visible",
-          //     filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
-          //     mt: 1.5,
-          //     "& .MuiAvatar-root": {
-          //       width: 32,
-          //       height: 32,
-          //       ml: -0.5,
-          //       mr: 1,
-          //     },
-          //     "&:before": {
-          //       content: '""',
-          //       display: "block",
-          //       position: "absolute",
-          //       top: 0,
-          //       right: 14,
-          //       width: 10,
-          //       height: 10,
-          //       bgcolor: "background.paper",
-          //       transform: "translateY(-50%) rotate(45deg)",
-          //       zIndex: 0,
-          //     },
-          //   },
-          // }}
           transformOrigin={{ horizontal: "right", vertical: "top" }}
           anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
         >
@@ -111,11 +82,19 @@ export default function BasicMenu({ currentUser }) {
             <Box display={"flex"}>
               {user.image ? (
                 <Avatar
-                  sx={{ borderRadius: 25, width: 70, height: 70 }}
+                  sx={{ borderRadius: 25, width: 70, height: 70, mr: 2 }}
                   src={user.image}
                 />
               ) : (
-                <Avatar sx={{ borderRadius: 25, width: 70, height: 70, fontSize:30, mr:2 }}>
+                <Avatar
+                  sx={{
+                    borderRadius: 25,
+                    width: 70,
+                    height: 70,
+                    fontSize: 30,
+                    mr: 2,
+                  }}
+                >
                   {currentUser?.firstName[0].toUpperCase()}
                   {currentUser?.lastName[0].toUpperCase()}
                 </Avatar>
