@@ -80,7 +80,7 @@ export default function BasicMenu({  }) {
         >
           <MenuItem onClick={handleClose}>
             <Box display={"flex"}>
-              {user.image ? (
+              {user?.image ? (
                 <Avatar
                   sx={{ borderRadius: 25, width: 70, height: 70, mr: 2 }}
                   src={user.image}
@@ -95,8 +95,8 @@ export default function BasicMenu({  }) {
                     mr: 2,
                   }}
                 >
-                  {user?.firstName[0].toUpperCase()}
-                  {user?.lastName[0].toUpperCase()}
+                  {user?.firstName[0]?.toUpperCase()}
+                  {user?.lastName[0]?.toUpperCase()}
                 </Avatar>
               )}
 
