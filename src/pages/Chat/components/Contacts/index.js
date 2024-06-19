@@ -4,6 +4,8 @@ import ContactsCard from "./ContactsCard";
 import { useRecoilState } from "recoil";
 import { userAtom } from "../../../../stateManagement/userAtom";
 import Loading from "../../../../components/Loading";
+import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
+import FilterListIcon from "@mui/icons-material/FilterList";
 
 export default function Contacts({
   contacts = [],
@@ -32,11 +34,22 @@ export default function Contacts({
           padding={2}
           fontWeight={600}
           display={"flex"}
-          justifyContent={"space-between"}
+          flexDirection={"column"}
           borderBottom={"1px solid #ABAAAA"}
           mb={1}
         >
-          Chat
+          <Box display={"flex"} justifyContent={"space-between"} pb={2}>
+            Chat
+            <Box>
+              <FilterListIcon
+                sx={{ color: "gray", cursor: "pointer", fontSize: 20, mr:1 }}
+              />
+              <BorderColorOutlinedIcon
+                sx={{ color: "gray", cursor: "pointer", fontSize: 20 }}
+              />
+            </Box>
+          </Box>
+
           <Box>
             <Typography
               display="inline-block"
@@ -68,7 +81,7 @@ export default function Contacts({
               display={"flex"}
               alignItems={"center"}
               justifyContent={"center"}
-              height={'50vh'}
+              height={"50vh"}
             >
               <Loading />
             </Box>
