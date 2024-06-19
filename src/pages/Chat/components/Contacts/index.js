@@ -13,6 +13,7 @@ export default function Contacts({
   currentSelected,
   setCurrentSelected,
   loading,
+  setCurrentChat,
 }) {
   const [recent, setRecent] = useState(false);
   const [user, setUser] = useRecoilState(userAtom);
@@ -42,9 +43,10 @@ export default function Contacts({
             Chat
             <Box>
               <FilterListIcon
-                sx={{ color: "gray", cursor: "pointer", fontSize: 20, mr:1 }}
+                sx={{ color: "gray", cursor: "pointer", fontSize: 20, mr: 1 }}
               />
               <BorderColorOutlinedIcon
+                onClick={() => setCurrentChat("new")}
                 sx={{ color: "gray", cursor: "pointer", fontSize: 20 }}
               />
             </Box>

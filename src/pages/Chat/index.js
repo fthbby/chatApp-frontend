@@ -97,19 +97,20 @@ export default function Chat() {
             height={"85vh"}
             width={"85vh"}
           >
-         
-              <Contacts
+            <Contacts
               loading={loading}
-                contacts={contacts}
-                currentUser={currentUser}
-                handleChatChange={handleChatChange}
-                currentSelected={currentSelected}
-                setCurrentSelected={setCurrentSelected}
-              />
-    
+              contacts={contacts}
+              currentUser={currentUser}
+              handleChatChange={handleChatChange}
+              currentSelected={currentSelected}
+              setCurrentSelected={setCurrentSelected}
+              setCurrentChat={setCurrentChat}
+            />
 
             {isLoaded && currentChat === undefined ? (
               <Welcome currentUser={currentUser} />
+            ) : currentChat === "new" ? (
+              "new chat container here"
             ) : (
               <ChatContainer
                 loading={loading}
