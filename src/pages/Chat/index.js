@@ -69,6 +69,13 @@ export default function Chat() {
 
   const [photoModal, setPhotoModal] = useState(true);
 
+  useEffect(() => {
+    if (currentChat === "new") {
+      setCurrentChat(undefined);
+      setCurrentSelected(undefined);
+    }
+  }, [currentChat]);
+
   return (
     <CustomLayout>
       {/* <PhotoModal open={photoModal} onClose={()=>setPhotoModal(false)} user={currentUser}/> */}
