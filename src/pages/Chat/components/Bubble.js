@@ -32,7 +32,10 @@ export default Bubble;
 
 const styles = {
   sentBubble: {
-    borderRadius: 5,
+    borderBottomLeftRadius: 10,
+    borderTopRightRadius:10,
+    borderTopLeftRadius:10,
+    borderBottomRightRadius:0,
     backgroundColor: "#e5e5f1",
   },
 
